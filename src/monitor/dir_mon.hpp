@@ -25,8 +25,7 @@ uint32_t get_mask(const initializer_list<Event> events) {
 
 class DirMon {
 
-        typedef Notification Not;
-        typedef std::function<void(list<Not*>*)> Callback;
+        typedef std::function<void(list<Notification*>*)> Callback;
 
         public:
 
@@ -44,12 +43,12 @@ class DirMon {
 
         void start(Callback action, atomic_bool& flag) {
 
-                /*while (!flag.load()) {
+                while (!flag.load()) {
                         
-                        NotList nlist;
-                        m_inotify->callOnce(nlist);
+                        auto nlist = new list<Notification*>;
+                        m_inotify->callOnce(*nlist);
                         action(nlist);
-                }*/
+                }
         }
 
         private:
