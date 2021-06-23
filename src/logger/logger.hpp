@@ -22,7 +22,7 @@ namespace fsm {
 template <typename N>
 class LogBase {
 
-        virtual void add(const N* e) = 0;
+        virtual void add(list<N*>* e) = 0;
 };
 
 template <typename N, typename S>
@@ -39,8 +39,9 @@ class Logger<N, ofstream> : LogBase<N> {
         Logger(const fs::path& p);
         ~Logger();
 
-        void add(const N* e);
-        //void add(list<N*>* list);
+        //void add(const N* e);
+        void add(list<N*>* list) {
+        }
 
         private:
         ofstream* m_ostream;
@@ -61,10 +62,10 @@ Logger<N, ofstream>::Logger(const fs::path& p) {
         m_ostream->open(p.u8string());
 }
 
-template <typename N>
+/*template <typename N>
 void Logger<N, ofstream>::add(const N* e) {
 
-}
+}*/
 
 
 }
