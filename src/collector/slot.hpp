@@ -7,6 +7,8 @@
 using namespace std;
 
 namespace fsm {
+
+
 /*
  * Thread Safe Data Slot.
  */
@@ -38,7 +40,6 @@ template <typename P>
 Slot<P>::Slot() {
 	m_items = new container;
 }
-
 
 template <typename P>
 Slot<P>::~Slot() {
@@ -73,22 +74,23 @@ typename Slot<P>::container* Slot<P>::replace() {
 }
 
 template <typename P>
-        bool Slot<P>::empty() {
+bool Slot<P>::empty() {
 
-                // TODO:: validate no compiler optimizations...
-                return m_items->empty();
-        }
+        return m_items->empty(); /* TODO:: when does gcc might optimize? */
+}
 
 template <typename P>
-        void Slot<P>::lock() {
+void Slot<P>::lock() {
 
-                m_lock.lock();
-        }
+        m_lock.lock();
+}
+
 template <typename P>
 void Slot<P>::unlock() {
 
-                m_lock.unlock();
-        }
+	m_lock.unlock();
+}
+
 }
 
 #endif // __SLOT__
