@@ -100,11 +100,11 @@ void Collector<N>::start(const atomic_bool& flag) {
                         auto slot = get_slot(i);
                         if (!slot->empty()) {
 
-                                /* Replace slot container, and forwards notifications to logger. */
+                                /* Replace slot container, and forward notifications to the logger. */
                                 slot->lock();
-                                auto events = slot->replace();
+                                auto container = slot->replace();
                                 slot->unlock();
-                                log_and_delete(events);
+                                log_and_delete(container);
                         }
                 }
         }
@@ -141,7 +141,7 @@ void Collector<N>::log_and_delete(SlotContainer* container) const {
                 
                 auto list = container->front();
                 container->pop();
-                //m_callback(list);
+                m_callback(list);
         }
 
         delete container;
