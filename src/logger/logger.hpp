@@ -50,7 +50,6 @@ class Logger<N, ofstream> : LogBase<N> {
 template <typename N>
 Logger<N, ofstream>::~Logger() {
 
-        //TODO::IMPL
         m_ostream->close();
         delete m_ostream;
 }
