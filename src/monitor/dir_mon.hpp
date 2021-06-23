@@ -25,7 +25,8 @@ uint32_t get_mask(const initializer_list<Event> events) {
 
 class DirMon {
 
-        typedef std::function<void(list<Notification*>&)> Callback;
+        typedef Notification Not;
+        typedef std::function<void(list<Not*>*)> Callback;
 
         public:
 

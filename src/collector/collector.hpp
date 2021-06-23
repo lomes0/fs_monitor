@@ -42,7 +42,7 @@ class Collector {
          * @Desc:
          *      Thread Safe insert to Collector storage space.
          */
-        void push(list<N*>&, uint8_t i);
+        void push(list<N*>*, uint8_t i);
 
         private:
 
@@ -50,27 +50,27 @@ class Collector {
         Callback m_callback;
 };
 
-template <typename T>
-Collector<T>::Collector(uint8_t size, Callback Callback)
+template <typename N>
+Collector<N>::Collector(uint8_t size, Callback Callback)
         : m_callback(std::move(Callback))
 {
         m_callback = Callback;
 }
 
-template <typename T>
-Collector<T>::~Collector() {
+template <typename N>
+Collector<N>::~Collector() {
 }
 
-template <typename T>
-void Collector<T>::start(const atomic_bool& flag) {
+template <typename N>
+void Collector<N>::start(const atomic_bool& flag) {
 
         while(!flag.load()) {
         }
 }
 
 
-template <typename E>
-void Collector<E>::push(list<E*>& elist, uint8_t i) {
+template <typename N>
+void Collector<N>::push(list<N*>* nlist, uint8_t i) {
 }
 
 }
