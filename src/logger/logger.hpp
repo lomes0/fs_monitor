@@ -39,9 +39,7 @@ class Logger<N, ofstream> : LogBase<N> {
         Logger(const fs::path& p);
         ~Logger();
 
-        //void add(const N* e);
-        void add(list<N*>* list) {
-        }
+        void add(list<N*>* list);
 
         private:
         ofstream* m_ostream;
@@ -61,10 +59,15 @@ Logger<N, ofstream>::Logger(const fs::path& p) {
         m_ostream->open(p.u8string());
 }
 
-/*template <typename N>
-void Logger<N, ofstream>::add(const N* e) {
+/*
+ * @Desc:
+ *      Invoked by Collector whenever new notifications are identified.
+ *      Logger is responsible for deleting all incoming pointers.
+ */
+template <typename N>
+void Logger<N, ofstream>::add(list<N*>* list) {
 
-}*/
+}
 
 
 }
