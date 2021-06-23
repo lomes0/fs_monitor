@@ -5,6 +5,7 @@
 #include <fstream>
 #include <filesystem>
 #include <string>
+#include <list>
 
 namespace fs = std::filesystem;
 using namespace std;
@@ -18,49 +19,50 @@ namespace fsm {
  * Ideally, We could have only had one Logger class...
  */
 
-template <typename E>
+template <typename N>
 class LogBase {
 
-        virtual void add(const E* e) = 0;
+        virtual void add(const N* e) = 0;
 };
 
-template <typename E, typename S>
-class Logger : LogBase<E> {};
+template <typename N, typename S>
+class Logger : LogBase<N> {};
 
 /*
  * @Desc:
  *      File logger using ofstream.
  */
-template <typename E>
-class Logger<E, ofstream> : LogBase<E> {
+template <typename N>
+class Logger<N, ofstream> : LogBase<N> {
 
         public:
         Logger(const fs::path& p);
         ~Logger();
 
-        void add(const E* e);
+        void add(const N* e);
+        //void add(list<N*>* list);
 
         private:
         ofstream* m_ostream;
 };
 
-template <typename E>
-Logger<E, ofstream>::~Logger() {
+template <typename N>
+Logger<N, ofstream>::~Logger() {
 
         //TODO::IMPL
         m_ostream->close();
         delete m_ostream;
 }
 
-template <typename E>
-Logger<E, ofstream>::Logger(const fs::path& p) {
+template <typename N>
+Logger<N, ofstream>::Logger(const fs::path& p) {
 
         m_ostream = new ofstream;
         m_ostream->open(p.u8string());
 }
 
-template <typename E>
-void Logger<E, ofstream>::add(const E* e) {
+template <typename N>
+void Logger<N, ofstream>::add(const N* e) {
 
 }
 
