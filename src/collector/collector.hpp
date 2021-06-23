@@ -48,17 +48,32 @@ class Collector {
 
         Slot<list<N*>*>* m_slots;
         Callback m_callback;
+        uint8_t m_size;
 };
 
 template <typename N>
 Collector<N>::Collector(uint8_t size, Callback Callback)
         : m_callback(std::move(Callback))
 {
-        m_callback = Callback;
+        m_slots = new Slot<list<N*>*>[size];
+        m_size = size;
 }
 
 template <typename N>
 Collector<N>::~Collector() {
+
+        for (uint8_t i = 0; i < m_size; i++) {
+
+                list<N*>* l = m_slots[i];
+                for (auto n : *l) {
+
+                        // write n to log
+                        delete n;
+                }
+                delete l;
+        }
+
+        delete m_slots;
 }
 
 template <typename N>
